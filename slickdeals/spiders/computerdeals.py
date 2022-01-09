@@ -5,7 +5,7 @@ from scrapy_selenium import SeleniumRequest
 class ComputerdealsSpider(scrapy.Spider):
     name = 'computerdeals'
     
-    def start_request(self):
+    def start_requests(self):
         yield SeleniumRequest(
             url="https://slickdeals.net/computer-deals/",
             wait_time=3,
@@ -13,7 +13,7 @@ class ComputerdealsSpider(scrapy.Spider):
         )
         
     def parse(self, response):
-        products = response.xpath("//ul[@class='dealTiles categoryGridDeals blueprint']/li") #[contains(@class,'fpGridBox grid')]")
+        products = response.xpath("//ul[@class='dealTiles categoryGridDeals blueprint']/li[contains(@class,'fpGridBox grid')]")
         for product in products:
             # try:
             yield{
